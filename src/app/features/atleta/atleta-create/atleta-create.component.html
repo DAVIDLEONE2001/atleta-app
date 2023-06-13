@@ -1,0 +1,178 @@
+<main class="flex-shrink-0">
+  <div class="container">
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+      *ngIf="errorMessage"
+    >
+      {{ errorMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h5>Inserisci nuovo elemento</h5>
+      </div>
+      <div class="card-body">
+        <form
+          (ngSubmit)="save(atletaForm)"
+          #atletaForm="ngForm"
+          class="row g-3"
+        >
+          <div class="col-md-6">
+            <label>Nome <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Inserire il nome"
+              required
+              minlength="2"
+              id="nome"
+              name="nome"
+              [(ngModel)]="atleta.nome"
+              #nomeVar="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (nomeVar.touched || nomeVar.dirty) && !nomeVar.valid
+              }"
+            />
+            <span class="invalid-feedback">
+              <span *ngIf="nomeVar.errors?.['required']">
+                Prego inserire un valore
+              </span>
+              <span *ngIf="nomeVar.errors?.['minlength']">
+                Il campo deve avere almeno due caratteri.
+              </span>
+            </span>
+          </div>
+
+          <div class="col-md-6">
+            <label>Cognome <span class="text-danger">*</span></label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Inserire cognome"
+              minlength="2"
+              id="cognome"
+              name="cognome"
+              [(ngModel)]="atleta.cognome"
+              #cognomeVar="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (cognomeVar.touched || cognomeVar.dirty) && !cognomeVar.valid
+              }"
+            />
+            <span class="invalid-feedback">
+              <span *ngIf="cognomeVar.errors?.['required']">
+                Prego inserire un valore
+              </span>
+              <span *ngIf="cognomeVar.errors?.['minlength']">
+                Il campo deve avere almeno due caratteri.
+              </span>
+            </span>
+          </div>
+          <div class="col-md-3">
+            <label>Data Ultima Gara<span class="text-danger">*</span></label>
+            <input
+              type="date"
+              class="form-control"
+              placeholder="dd/MM/yy"
+              required
+              [max]="getTodayDate()"
+              id="dataUltimaGara"
+              name="dataUltimaGara"
+              title="formato : gg/mm/aaaa"
+              [(ngModel)]="atleta.dataUltimaGara"
+              #dataUltimaGaraVar="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (dataUltimaGaraVar.touched || dataUltimaGaraVar.dirty) &&
+                  (!dataUltimaGaraVar.valid || !atleta.dataUltimaGara)
+              }"
+            />
+            <span class="invalid-feedback">
+              <span *ngIf="dataUltimaGaraVar.errors?.['required']">
+                Prego inserire un valore
+              </span>
+              <span *ngIf="dataUltimaGaraVar.errors?.['max']">
+                Il campo non deve essere fututo.
+              </span>
+            </span>
+          </div>
+
+          <div class="col-md-6">
+            <label
+              >Numero Medaglie Vinte <span class="text-danger">*</span></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              placeholder="Inserire numero medaglie vinte"
+              required
+              min="0"
+              id="numeroMedaglieVinte"
+              name="numeroMedaglieVinte"
+              [(ngModel)]="atleta.numeroMedaglieVinte"
+              #numeroMedaglieVinteVar="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  (numeroMedaglieVinteVar.touched ||
+                    numeroMedaglieVinteVar.dirty) &&
+                  !numeroMedaglieVinteVar.valid
+              }"
+            />
+            <span class="invalid-feedback">
+              <span *ngIf="numeroMedaglieVinteVar.errors?.['required']">
+                Prego inserire un valore
+              </span>
+              <span *ngIf="numeroMedaglieVinteVar.errors?.['min']">
+                Il campo deve contenere un numero positivo
+              </span>
+            </span>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-check form-switch">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="inAttivita"
+                name="inAttivita"
+                [(ngModel)]="atleta.inAttivita"
+              />
+              <label class="form-check-label" for="inAttivita">In Attivita</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button
+              type="submit"
+              name="submitButton"
+              value="submitButton"
+              id="submitButton"
+              class="btn btn-primary"
+              [disabled]="!atletaForm.form.valid"
+            >
+              Conferma
+            </button>
+            <a routerLink="/atleta/list" class='btn btn-outline-secondary' style='width:80px'>
+              <i class='fa fa-chevron-left'></i> Back
+          </a>
+          </div>
+        </form>
+        <!-- {{ libro | json }} -->
+
+        <!-- end card-body -->
+      </div>
+      <!-- end card -->
+    </div>
+    <!-- end container -->
+  </div>
+
+  <!-- end main -->
+</main>

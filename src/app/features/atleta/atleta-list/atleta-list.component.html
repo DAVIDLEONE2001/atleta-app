@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it" class="h-100">
+  <head>
+    <!-- Common imports in pages -->
+
+    <title>Pagina dei Risultati</title>
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <!-- Fixed navbar -->
+
+    <!-- Begin page content -->
+    <main class="flex-shrink-0">
+      <div class="container">
+        <div class="card">
+          <div class="card-header">
+            <h5>Lista dei risultati</h5>
+          </div>
+          <div class="card-body">
+            <button class="btn btn-primary" routerLink="/atleta/create">
+              Add New
+            </button>
+
+            <div class="table-responsive" *ngIf="listaAtleti">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Nome</th>
+                    <th>cognome</th>
+                    <th>Data Ultima Gara</th>
+                    <th>Medaglie Vinte</th>
+                    <th>In Attivita</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let atletaItem of listaAtleti">
+                    <td>{{ atletaItem.nome }}</td>
+                    <td>{{ atletaItem.cognome }}</td>
+                    <td>
+                      {{
+                        atletaItem.dataUltimaGara | date : "dd/MM/yyyy"
+                      }}
+                    </td>
+                    <td>{{ atletaItem.numeroMedaglieVinte }}</td>
+                    <td>
+                      {{ atletaItem.inAttivita ? "SI" : "NO" }}
+                    </td>
+                    <td>
+                      <button
+                        [routerLink]="['/atleta', atletaItem.id]"
+                        class="btn btn-primary btn-lg"
+                        class="btn btn-sm btn-outline-secondary"
+                      >
+                        Visualizza
+                      </button>
+                      <button
+                        class="btn btn-sm btn-outline-primary ml-2 mr-2"
+                        [routerLink]="['/appartamento/edit', atletaItem.id]"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        class="btn btn-outline-danger btn-sm"
+                        [routerLink]="['/appartamento/remove', atletaItem.id]"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- end card-body -->
+          </div>
+          <!-- end card -->
+        </div>
+
+        <!-- end container -->
+      </div>
+      <br />
+    </main>
+
+    <!-- Footer -->
+  </body>
+</html>
